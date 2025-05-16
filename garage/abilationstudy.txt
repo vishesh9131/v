@@ -1,0 +1,257 @@
+(base) visheshyadav@Vishesh-Yadav v % python -u "/Users/visheshyadav/Documents/Git
+Hub/v/ablation_study.py"
+Using device: cpu
+Running ablation study on device: cpu
+Initializing MultiBehaviorDataset with path: /Users/visheshyadav/Documents/GitHub/CoreRec/src/SANDBOX/dataset/Tmall/
+Loading Tmall training data from: /Users/visheshyadav/Documents/GitHub/CoreRec/src/SANDBOX/dataset/Tmall/
+Loading training data from: /Users/visheshyadav/Documents/GitHub/CoreRec/src/SANDBOX/dataset/Tmall/ijcai2016_koubei_train
+Tmall dataset dimensions: 230496 users, 5910 merchants
+Time periods used as behaviors: ['early', 'mid', 'late', 'recent']
+Loading test data from: /Users/visheshyadav/Documents/GitHub/CoreRec/src/SANDBOX/dataset/Tmall/ijcai2016_koubei_test
+Using 5000 test users
+
+=== Testing Full Model ===
+Settings: {'use_transformer': True, 'use_dng': True, 'use_weights': True}
+Preparing training instances...
+Generated 5000 training instances
+Number of unique users: 791
+Shape of training data: (5000, 7)
+
+Epoch 1/1
+Batch 0/5, Loss: 2.7804
+Preparing test instances...
+Generated 94700 test instances
+Number of unique users: 742
+Evaluating 94700 instances in 947 chunks...
+Processing chunk 1/947
+Processing chunk 51/947
+Processing chunk 101/947
+Processing chunk 151/947
+Processing chunk 201/947
+Processing chunk 251/947
+Processing chunk 301/947
+Processing chunk 351/947
+Processing chunk 401/947
+Processing chunk 451/947
+Processing chunk 501/947
+Processing chunk 551/947
+Processing chunk 601/947
+Processing chunk 651/947
+Processing chunk 701/947
+Processing chunk 751/947
+Processing chunk 801/947
+Processing chunk 851/947
+Processing chunk 901/947
+
+Evaluation Statistics:
+Total users evaluated: 947
+Number of hits: 936
+Average HR@10: 0.9884
+Average NDCG@10: 0.9884
+
+Best results for Full Model:
+HR@10: 0.9884
+NDCG@10: 0.9884
+
+=== Testing No Transformer ===
+Settings: {'use_transformer': False, 'use_dng': True, 'use_weights': True}
+Preparing training instances...
+Generated 5000 training instances
+Number of unique users: 791
+Shape of training data: (5000, 7)
+
+Epoch 1/1
+Batch 0/5, Loss: 2.2903
+Preparing test instances...
+Generated 94700 test instances
+Number of unique users: 742
+Evaluating 94700 instances in 947 chunks...
+Processing chunk 1/947
+Processing chunk 51/947
+Processing chunk 101/947
+Processing chunk 151/947
+Processing chunk 201/947
+Processing chunk 251/947
+Processing chunk 301/947
+Processing chunk 351/947
+Processing chunk 401/947
+Processing chunk 451/947
+Processing chunk 501/947
+Processing chunk 551/947
+Processing chunk 601/947
+Processing chunk 651/947
+Processing chunk 701/947
+Processing chunk 751/947
+Processing chunk 801/947
+Processing chunk 851/947
+Processing chunk 901/947
+
+Evaluation Statistics:
+Total users evaluated: 947
+Number of hits: 727
+Average HR@10: 0.7677
+Average NDCG@10: 0.7677
+
+Best results for No Transformer:
+HR@10: 0.7677
+NDCG@10: 0.7677
+
+=== Testing No DNG ===
+Settings: {'use_transformer': True, 'use_dng': False, 'use_weights': True}
+Preparing training instances...
+Generated 5000 training instances
+Number of unique users: 791
+Shape of training data: (5000, 7)
+
+Epoch 1/1
+Batch 0/5, Loss: 0.8647
+Preparing test instances...
+Generated 94700 test instances
+Number of unique users: 742
+Evaluating 94700 instances in 947 chunks...
+Processing chunk 1/947
+Processing chunk 51/947
+Processing chunk 101/947
+Processing chunk 151/947
+Processing chunk 201/947
+Processing chunk 251/947
+Processing chunk 301/947
+Processing chunk 351/947
+Processing chunk 401/947
+Processing chunk 451/947
+Processing chunk 501/947
+Processing chunk 551/947
+Processing chunk 601/947
+Processing chunk 651/947
+Processing chunk 701/947
+Processing chunk 751/947
+Processing chunk 801/947
+Processing chunk 851/947
+Processing chunk 901/947
+
+Evaluation Statistics:
+Total users evaluated: 947
+Number of hits: 947
+Average HR@10: 1.0000
+Average NDCG@10: 1.0000
+
+Best results for No DNG:
+HR@10: 1.0000
+NDCG@10: 1.0000
+
+=== Testing No Weights ===
+Settings: {'use_transformer': True, 'use_dng': True, 'use_weights': False}
+Preparing training instances...
+Generated 5000 training instances
+Number of unique users: 791
+Shape of training data: (5000, 7)
+
+Epoch 1/1
+Batch 0/5, Loss: 8.4728
+Preparing test instances...
+Generated 94700 test instances
+Number of unique users: 742
+Evaluating 94700 instances in 947 chunks...
+Processing chunk 1/947
+Processing chunk 51/947
+Processing chunk 101/947
+Processing chunk 151/947
+Processing chunk 201/947
+Processing chunk 251/947
+Processing chunk 301/947
+Processing chunk 351/947
+Processing chunk 401/947
+Processing chunk 451/947
+Processing chunk 501/947
+Processing chunk 551/947
+Processing chunk 601/947
+Processing chunk 651/947
+Processing chunk 701/947
+Processing chunk 751/947
+Processing chunk 801/947
+Processing chunk 851/947
+Processing chunk 901/947
+
+Evaluation Statistics:
+Total users evaluated: 947
+Number of hits: 947
+Average HR@10: 1.0000
+Average NDCG@10: 1.0000
+
+Best results for No Weights:
+HR@10: 1.0000
+NDCG@10: 1.0000
+
+=== Testing Basic Model ===
+Settings: {'use_transformer': True, 'use_dng': False, 'use_weights': False}
+Preparing training instances...
+Generated 5000 training instances
+Number of unique users: 791
+Shape of training data: (5000, 7)
+
+Epoch 1/1
+Batch 0/5, Loss: 0.7344
+Preparing test instances...
+Generated 94700 test instances
+Number of unique users: 742
+Evaluating 94700 instances in 947 chunks...
+Processing chunk 1/947
+Processing chunk 51/947
+Processing chunk 101/947
+Processing chunk 151/947
+Processing chunk 201/947
+Processing chunk 251/947
+Processing chunk 301/947
+Processing chunk 351/947
+Processing chunk 401/947
+Processing chunk 451/947
+Processing chunk 501/947
+Processing chunk 551/947
+Processing chunk 601/947
+Processing chunk 651/947
+Processing chunk 701/947
+Processing chunk 751/947
+Processing chunk 801/947
+Processing chunk 851/947
+Processing chunk 901/947
+
+Evaluation Statistics:
+Total users evaluated: 947
+Number of hits: 947
+Average HR@10: 1.0000
+Average NDCG@10: 0.9984
+
+Best results for Basic Model:
+HR@10: 1.0000
+NDCG@10: 0.9984
+
+=== Final Ablation Study Results ===
+
+Variant         HR@10   NDCG@10
+----------------------------------------
+Full Model      0.9884  0.9884
+No Transformer  0.7677  0.7677
+No DNG          1.0000  1.0000
+No Weights      1.0000  1.0000
+Basic Model     1.0000  0.9984
+
+=== Final Ablation Study Results ===
+
+Variant         HR@10   NDCG@10
+----------------------------------------
+Full Model      0.9778  0.9778
+No Transformer  0.1457  0.1457
+No DNG          1.0000  1.0000
+No Weights      0.9799  0.9795
+Basic Model     1.0000  1.0000
+
+
+=== Final Ablation Study Results ==
+
+Variant         HR@10   NDCG@10
+----------------------------------------
+Full Model      0.9778  0.9778
+No Transformer  0.1457  0.1457
+No DNG          1.0000  1.0000
+No Weights      0.9789  0.9785
+Basic Model     1.0000  1.0000

@@ -1,0 +1,102 @@
+# Python files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Distribution / packaging
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# IDE related
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# ML model files and data - likely to be large
+*.h5
+*.pkl
+*.model
+*.joblib
+*.pt
+*.pth
+*.onnx
+*.pb
+models/*.bin
+models/*.vec
+*.npy
+*.npz
+
+# Large data files
+*.csv
+*.json
+*.sqlite
+*.db
+*.hdf5
+*.parquet
+*.feather
+data/
+
+# Large media files
+*.mp4
+*.tiff
+*.avi
+*.flv
+*.mov
+*.wmv
+*.mp3
+*.wav
+*.gz
+*.tar
+*.zip
+*.7z
+*.rar
+
+# Logs
+logs/
+*.log 
+
+# Specific large files > 100MB in this project
+models/CFUIcA_rees46_best.pt
+models/CFUIcA_rees46.pt
+models/MFBias_rees46_best.pt
+models/MFBias_rees46.pt
+models/NCF_rees46_best.pt
+models/NCF_rees46.pt
+REES46/direct_msg/messages-demo.csv
+REES46/events.csv
+Tmall/ijcai2016_taobao.csv 

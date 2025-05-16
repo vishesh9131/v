@@ -1,0 +1,193 @@
+\documentclass{article}
+\usepackage{tikz}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{colortbl}
+\usepackage[margin=1in]{geometry}
+
+% Global TikZ style definitions (note: defines "arrow" globally)
+\tikzset{
+  box/.style={draw, minimum width=3cm, minimum height=2cm, align=center},
+  proc/.style={draw, minimum width=2cm, minimum height=1.5cm, align=center},
+  score/.style={draw, fill=green!10, align=center},
+  arrow/.style={->, thick}
+}
+
+\usetikzlibrary{positioning,arrows.meta,calc}
+
+\title{Scoreformer: Interactive Matrix Flow Analysis}
+\author{Detailed Architecture Analysis}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\section{Input Layer Visualization}
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[box/.style={draw, minimum width=3cm, minimum height=2cm, align=center, fill=blue!10}]
+    \node (X) {Feature Matrix \(X\)\\ \(\in \mathbb{R}^{32 \times 100}\)};
+    \node[right=2cm of X] (A) {Adjacency Matrix \(A\)\\ \(\in \{0,1\}^{32 \times 32}\)};
+    \node[right=2cm of A] (G) {Graph Metrics \(G\)\\ \(\in \mathbb{R}^{32 \times 10}\)};
+\end{tikzpicture}
+\caption{Input Matrices with Sample Values}
+\end{figure}
+
+\section{Attention Mechanism}
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[
+    box/.style={draw, minimum width=2.8cm, minimum height=1.8cm, align=center},
+    att/.style={draw, minimum width=2.5cm, minimum height=1.5cm, fill=red!10},
+    arrow/.style={->, thick}
+]
+    \node (Q) {Query \(Q = WX\)};
+    \node[right=2cm of Q] (K) {Key \(K = WX\)};
+    \node[right=2cm of K] (V) {Value \(V = X\)};
+    
+    \node[att, below=2cm of K] (attn) {Attention Scores\\ \(\displaystyle \text{softmax}\Bigl(\frac{QK^T}{\sqrt{d_k}}\Bigr)\)};
+    \node[box, below=2cm of attn] (out) {Output\\ \(\text{Attention}(Q,K,V)\)};
+    
+    \draw[arrow] (Q) -- (attn);
+    \draw[arrow] (K) -- (attn);
+    \draw[arrow] (V) -- (attn);
+    \draw[arrow] (attn) -- (out);
+\end{tikzpicture}
+\caption{Self-Attention Mechanism}
+\end{figure}
+
+\section{DNG Score Formation}
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[
+    box/.style={draw, minimum width=3cm, minimum height=2cm, align=center},
+    score/.style={draw, fill=green!10, align=center},
+    arrow/.style={->, thick}
+]
+    \node[score] (DS) {Direct Score: \(AX\)\\[4pt]
+      \(\displaystyle \begin{pmatrix} s_{11} & s_{12} \\[4pt] s_{21} & s_{22} \end{pmatrix}\)};
+    \node[score, right=2cm of DS] (NS) {Neighbourhood Score:\\[4pt]
+      \(\displaystyle \begin{pmatrix} n_{11} & n_{12} \\[4pt] n_{21} & n_{22} \end{pmatrix}\)};
+    \node[score, right=2cm of NS] (GS) {Graph Score: \(G\)\\[4pt]
+      \(\displaystyle \begin{pmatrix} g_{11} & g_{12} \\[4pt] g_{21} & g_{22} \end{pmatrix}\)};
+    
+    \node[box, below=2cm of NS] (DNG) {DNG Score:\\[4pt] \(\displaystyle [\,DS \quad NS \quad G\,]\)};
+    
+    \draw[arrow] (DS) -- (DNG);
+    \draw[arrow] (NS) -- (DNG);
+    \draw[arrow] (GS) -- (DNG);
+\end{tikzpicture}
+\caption{DNG Score Formation Process}
+\end{figure}
+
+\section{Final Output Layer}
+\[
+X = \begin{pmatrix}
+1 & 2 & 3\\[4pt]
+4 & 5 & 6\\[4pt]
+7 & 8 & 9
+\end{pmatrix}
+\quad \text{Shape: } 3 \times 3
+\]
+\[
+G = \begin{pmatrix}
+1 & 0 & 1\\[4pt]
+0 & 1 & 0\\[4pt]
+1 & 0 & 1
+\end{pmatrix}
+\quad \text{Shape: } 3 \times 3
+\]
+\[
+W = \begin{pmatrix}
+1 & 0 & -1\\[4pt]
+0 & 1 & 0\\[4pt]
+-1 & 0 & 1
+\end{pmatrix}
+\quad \text{Shape: } 3 \times 3
+\]
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[
+    box/.style={draw, minimum width=3cm, minimum height=2cm, align=center},
+    heat/.style={draw, fill=blue!10},
+    arrow/.style={->, thick}
+]
+    \node[heat] (outputheat) {Final Output\\[4pt]
+     \(\displaystyle \begin{pmatrix} 1 & -1 & 2 \\[4pt] 0 & 1 & -1 \\[4pt] -1 & 0 & 1 \end{pmatrix}\)};
+    \begin{scope}[shift={(4,0)}]
+        \draw[->] (0,-1) -- (0,1) node[above] {Value};
+        \foreach \y/\v in {-1/-1, 0/0, 1/1} {
+            \draw (-0.1,\y) -- (0.1,\y) node[right] {\v};
+        }
+    \end{scope}
+\end{tikzpicture}
+\caption{Final Output Matrix with Values}
+\end{figure}
+
+\section{Complete Architecture Flow}
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[
+    box/.style={draw, minimum width=3cm, minimum height=2cm, align=center},
+    proc/.style={draw, minimum width=2cm, minimum height=1.5cm, align=center},
+    arrow/.style={->, thick},
+    node distance=2cm
+]
+    \node (input) [proc] {Input Matrix};
+    \node (direct) [proc, below left=of input] {Direct Score};
+    \node (jaccard) [proc, below=of input] {Jaccard Similarity};
+    \node (graph) [proc, below right=of input] {Graph Metrics};
+    \node (dng) [box, below=2cm of jaccard] {DNG Scores};
+    \node (trans) [proc, right=2cm of dng] {Transformer};
+    \node (output) [box, right=2cm of trans] {Output};
+    
+    \draw[arrow] (input) -- (direct);
+    \draw[arrow] (input) -- (jaccard);
+    \draw[arrow] (input) -- (graph);
+    \draw[arrow] (direct) -- (dng);
+    \draw[arrow] (jaccard) -- (dng);
+    \draw[arrow] (graph) -- (dng);
+    \draw[arrow] (dng) -- (trans);
+    \draw[arrow] (trans) -- (output);
+\end{tikzpicture}
+\caption{Complete Scoreformer Architecture}
+\end{figure}
+
+\section{Scoring Phase}
+
+\subsection*{A. Direct Score}
+\[
+\mathbf{A} = \begin{pmatrix}
+a_{11} & a_{12} \\[4pt]
+a_{21} & a_{22}
+\end{pmatrix}
+\]
+
+\subsection*{B. Neighbourhood Similarity (Jaccard)}
+\[
+\mathbf{B} = \begin{pmatrix}
+1 & 0.5 \\[4pt]
+0.5 & 1
+\end{pmatrix}
+\]
+
+\subsection*{C. Graph Metrics}
+\[
+\mathbf{C} = \begin{pmatrix}
+c_{11} & c_{12} \\[4pt]
+c_{21} & c_{22}
+\end{pmatrix}
+\]
+
+\subsection*{D. Final DNG Scores}
+\[
+\mathbf{D} = \begin{pmatrix}
+d_{11} & d_{12} \\[4pt]
+d_{21} & d_{22}
+\end{pmatrix}
+\]
+
+\end{document}

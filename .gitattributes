@@ -1,0 +1,25 @@
+# Auto detect text files and perform LF normalization
+* text=auto
+
+# Git LFS configuration for large files
+*.pt filter=lfs diff=lfs merge=lfs -text
+*.pth filter=lfs diff=lfs merge=lfs -text
+*.h5 filter=lfs diff=lfs merge=lfs -text
+*.pkl filter=lfs diff=lfs merge=lfs -text
+*.model filter=lfs diff=lfs merge=lfs -text
+*.bin filter=lfs diff=lfs merge=lfs -text
+*.csv filter=lfs diff=lfs merge=lfs -text
+*.parquet filter=lfs diff=lfs merge=lfs -text
+*.npy filter=lfs diff=lfs merge=lfs -text
+*.npz filter=lfs diff=lfs merge=lfs -text
+
+# Specific large files
+models/CFUIcA_rees46_best.pt filter=lfs diff=lfs merge=lfs -text
+models/CFUIcA_rees46.pt filter=lfs diff=lfs merge=lfs -text
+models/MFBias_rees46_best.pt filter=lfs diff=lfs merge=lfs -text
+models/MFBias_rees46.pt filter=lfs diff=lfs merge=lfs -text
+models/NCF_rees46_best.pt filter=lfs diff=lfs merge=lfs -text
+models/NCF_rees46.pt filter=lfs diff=lfs merge=lfs -text
+REES46/direct_msg/messages-demo.csv filter=lfs diff=lfs merge=lfs -text
+REES46/events.csv filter=lfs diff=lfs merge=lfs -text
+Tmall/ijcai2016_taobao.csv filter=lfs diff=lfs merge=lfs -text
