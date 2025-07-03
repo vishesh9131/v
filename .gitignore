@@ -100,3 +100,5 @@ models/NCF_rees46.pt
 REES46/direct_msg/messages-demo.csv
 REES46/events.csv
 Tmall/ijcai2016_taobao.csv 
+/ml-100k
+/ml-1m
